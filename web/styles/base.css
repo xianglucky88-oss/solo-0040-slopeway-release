@@ -1,0 +1,59 @@
+:root {
+  color-scheme: light;
+  --background: #f3f4ee;
+  --panel: #fffefa;
+  --ink: #1b2c26;
+  --subtle: #56675d;
+  --edge: #dce1d5;
+  --accent: #245a44;
+  --wash: #eaf0e7;
+  --warning: #a64d28;
+  font: 15px/1.5 "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  color: var(--ink);
+  background: var(--background);
+}
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; }
+[hidden] { display: none !important; }
+button, input, select, textarea { font: inherit; }
+button, select, summary { cursor: pointer; }
+button:disabled { opacity: .55; cursor: progress; }
+:focus-visible { outline: 2px solid #4d8569; outline-offset: 3px; }
+a { color: var(--accent); }
+h1, h2, h3, p { margin: 0; }
+h1 { font-size: 19px; letter-spacing: .02em; }
+h2 { font-size: clamp(24px, 3vw, 34px); line-height: 1.22; }
+h3 { font-size: 17px; }
+label { display: grid; gap: 6px; min-width: 0; font-weight: 620; font-size: 13px; color: var(--subtle); }
+input, select, textarea {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid var(--edge);
+  border-radius: 7px;
+  color: var(--ink);
+  background: var(--panel);
+  min-height: 40px;
+  padding: 7px 10px;
+}
+textarea { resize: vertical; font-family: ui-monospace, monospace; font-size: 13px; }
+main { max-width: 1440px; padding: 30px clamp(16px, 4vw, 56px) 56px; margin: auto; }
+.button, .link-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  padding: 8px 15px;
+  text-decoration: none;
+  font-weight: 650;
+  white-space: nowrap;
+}
+.button { background: var(--accent); color: #fff; }
+.button:hover { background: #194631; }
+.link-button { border-color: var(--edge); background: var(--panel); }
+.link-button:hover { background: var(--wash); }
+.empty { padding: 25px; background: var(--wash); border-radius: 10px; color: var(--subtle); }
+.message { padding: 9px 12px; border-radius: 7px; background: var(--wash); overflow-wrap: anywhere; }
+.message[data-error="true"] { color: #8b3126; background: #fae9e3; }
+.banner { margin-bottom: 16px; }

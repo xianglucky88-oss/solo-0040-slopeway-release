@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f5ed">
+  <title>坡径通行编译台</title>
+  <link rel="stylesheet" href="/styles/base.css">
+  <link rel="stylesheet" href="/styles/workbench.css">
+  <link rel="stylesheet" href="/styles/forms.css">
+  <script type="module" src="/js/main.mjs"></script>
+</head>
+<body>
+  <header class="masthead">
+    <div class="title-block"><span class="mark" aria-hidden="true"><i></i><i></i><i></i></span><div><h1>坡径通行编译台</h1><p>步道通行数据工作台</p></div></div>
+    <nav class="screen-nav" aria-label="主导航">
+      <button type="button" data-screen="walk" aria-current="page">通行图</button>
+      <button type="button" data-screen="intake">证据入库</button>
+      <button type="button" data-screen="releases">编译与发布</button>
+    </nav>
+    <label class="district-label">工作片区<select id="district" aria-label="工作片区"></select></label>
+  </header>
+  <main>
+    <p id="app-message" class="message banner" role="status" hidden></p>
+    <section id="walk" class="screen">
+      <div class="screen-heading"><div><p class="overline">通行复核</p><h2>街段与路线</h2></div><span id="release-badge" class="tag"></span></div>
+      <form id="preview-form" class="toolbar">
+        <label class="draft-select">发布件<select name="release" required></select></label>
+        <label>查询时点（UTC）<input name="at" type="datetime-local" step="1" required></label>
+        <label>通行条件<select name="profile" required></select></label>
+        <button type="submit" class="button">查看通行图</button>
+      </form>
+      <div id="walk-workbench" class="workbench" hidden>
+        <article class="panel drawing">
+          <header class="panel-heading"><div><h3 id="map-title">片区通行图</h3><p id="map-summary"></p></div></header>
+          <div class="canvas-field"><canvas id="street-map" role="img" aria-labelledby="map-title map-summary"></canvas></div>
+          <div id="map-legend" class="legend" aria-label="地图图例"></div>
+        </article>
+        <aside class="panel route-panel">
+          <header class="panel-heading"><div><h3>约束路线</h3><p>按同一查询时点判定各街段</p></div></header>
+          <form id="route-form" class="route-form">
+            <label>起点<select name="origin" required></select></label>
+            <label>终点<select name="target" required></select></label>
+            <button type="submit" class="button">计算路线</button>
+          </form>
+          <div id="route-result" class="route-result" aria-live="polite"></div>
+        </aside>
+        <article class="panel review-panel">
+          <header class="panel-heading"><div><h3>方向证据</h3><p id="gap-summary"></p></div><select id="arc-picker" aria-label="方向街段"></select></header>
+          <div id="arc-evidence" class="evidence" aria-live="polite"></div>
+        </article>
+      </div>
+      <p id="walk-empty" class="empty">请先在「证据入库」登记拓扑，并在「编译与发布」创建一个发布件。</p>
+    </section>
+    <section id="intake" class="screen" hidden>
+      <div class="screen-heading"><div><p class="overline">证据接收</p><h2>量测、封闭与拓扑</h2></div></div>
+      <div class="two-col">
+        <article class="panel">
+          <header class="panel-heading"><div><h3>提交数据</h3><p>上传或粘贴 UTF-8 JSON。整批验证通过后入库。</p></div></header>
+          <form id="intake-form" class="stack">
+            <label>数据类型<select name="kind"><option value="feeds">方向量测或封闭通告</option><option value="topologies">拓扑修订</option></select></label>
+            <label>选取文件<input id="intake-file" type="file" accept=".json,application/json"></label>
+            <label>请求内容<textarea name="payload" rows="13" placeholder="粘贴 JSON 请求内容" required></textarea></label>
+            <div class="actions"><button type="submit" class="button">验证并入库</button></div>
+            <p id="intake-message" class="message" role="status" hidden></p>
+          </form>
+        </article>
+        <article class="panel">
+          <header class="panel-heading"><div><h3>接收记录</h3><p>按拓扑修订查看已入库批次</p></div><select id="revisions" aria-label="拓扑修订"></select></header>
+          <div id="feed-history" class="activity"></div>
+          <details class="inline-details"><summary>量测和通告来源</summary><ul id="source-list"></ul></details>
+        </article>
+      </div>
+    </section>
+    <section id="releases" class="screen" hidden>
+      <div class="screen-heading"><div><p class="overline">数据交付</p><h2>发布件与渠道</h2></div></div>
+      <div class="two-col">
+        <article class="panel">
+          <header class="panel-heading"><div><h3>编译发布件</h3><p>服务窗口和知识截点统一以 UTC 填写</p></div></header>
+          <form id="compile-form" class="stack">
+            <label>拓扑修订<select name="revision" required></select></label>
+            <div class="date-fields">
+              <label>知识截点<input name="cutoff" type="datetime-local" step="1" required></label>
+              <label>服务起点<input name="start" type="datetime-local" step="1" required></label>
+              <label>服务终点<input name="end" type="datetime-local" step="1" required></label>
+            </div>
+            <div class="actions"><button type="submit" class="button">编译并封存</button></div>
+            <p id="compile-message" class="message" role="status" hidden></p>
+          </form>
+        </article>
+        <article class="panel">
+          <header class="panel-heading"><div><h3>渠道交接</h3><p id="channel-head"></p></div><select id="channel" aria-label="发布渠道"><option value="field">外业核对</option><option value="public">公开分发</option></select></header>
+          <form id="channel-form" class="stack">
+            <label>目标发布件<select name="release" required></select></label>
+            <div class="date-fields"><label>交接操作<select name="action"><option value="publish">发布到渠道</option><option value="restore">恢复历史发布件</option></select></label><label>交接说明<input name="note" maxlength="140" required></label></div>
+            <div class="actions"><button type="submit" class="button">确认交接</button><a id="channel-download" class="link-button" hidden>导出当前渠道</a></div>
+            <p id="channel-message" class="message" role="status" hidden></p>
+          </form>
+          <details class="inline-details"><summary>交接历史</summary><div id="channel-history" class="activity compact"></div></details>
+        </article>
+        <article class="panel">
+          <header class="panel-heading"><div><h3>发布件复核</h3><p>校验源数据指纹和编译索引</p></div></header>
+          <form id="verify-form" class="stack">
+            <label>发布件<select name="release" required></select></label>
+            <div class="actions"><button type="submit" class="button">复核发布件</button><a id="release-download" class="link-button" hidden>导出发布包</a></div>
+            <div id="verify-result" aria-live="polite"></div>
+          </form>
+        </article>
+        <article class="panel">
+          <header class="panel-heading"><div><h3>同一时点比对</h3><p>查询时点须落在两个发布件的服务窗口内</p></div></header>
+          <form id="compare-form" class="stack">
+            <label>对照发布件<select name="before" required></select></label>
+            <label>目标发布件<select name="after" required></select></label>
+            <div class="date-fields"><label>查询时点（UTC）<input name="at" type="datetime-local" step="1" required></label><label>通行条件<select name="profile" required></select></label></div>
+            <div class="actions"><button type="submit" class="button">比较证据与通行</button></div>
+            <div id="compare-result" aria-live="polite"></div>
+          </form>
+        </article>
+      </div>
+    </section>
+  </main>
+  <noscript>请启用 JavaScript 以使用坡径通行编译台。</noscript>
+</body>
+</html>

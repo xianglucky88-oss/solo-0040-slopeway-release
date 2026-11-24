@@ -1,0 +1,30 @@
+{
+  "district": "reedbank",
+  "revision": 1,
+  "batch": "check-917",
+  "kind": "survey",
+  "source": "community",
+  "reported_at": "2026-09-17T08:00:00Z",
+  "records": [
+    {
+      "id": "arch-deck-ab",
+      "segment": "arch-deck",
+      "direction": "ab",
+      "observed_at": "2026-09-17T07:40:00Z",
+      "expires_at": "2026-09-19T07:00:00Z",
+      "width_mm": 835,
+      "grade_permille": 26,
+      "step_mm": 8
+    },
+    {
+      "id": "quay-garden-ab",
+      "segment": "quay-garden",
+      "direction": "ab",
+      "observed_at": "2026-09-17T07:40:00Z",
+      "expires_at": "2026-09-19T07:00:00Z",
+      "width_mm": 980,
+      "grade_permille": 26,
+      "step_mm": 8
+    }
+  ]
+}

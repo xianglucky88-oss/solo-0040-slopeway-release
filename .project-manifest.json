@@ -1,0 +1,350 @@
+{
+  "name": "坡径通行编译台",
+  "project_shape": "fullstack",
+  "modules": [
+    {
+      "id": "http",
+      "name": "HTTP 请求与资源",
+      "paths": [
+        "slopeway/http/server.py",
+        "slopeway/http/routes.py",
+        "slopeway/http/release_api.py",
+        "slopeway/http/channel_api.py"
+      ]
+    },
+    {
+      "id": "topology",
+      "name": "拓扑校验与有向展开",
+      "paths": [
+        "slopeway/network/topology.py",
+        "slopeway/network/arcs.py"
+      ]
+    },
+    {
+      "id": "intake",
+      "name": "采集与来源身份",
+      "paths": [
+        "slopeway/intake/batch.py",
+        "slopeway/intake/sources.py",
+        "slopeway/intake/survey.py",
+        "slopeway/intake/notice.py"
+      ]
+    },
+    {
+      "id": "time",
+      "name": "时间边界与证据索引",
+      "paths": [
+        "slopeway/evaluation/chronology.py",
+        "slopeway/evaluation/index.py"
+      ]
+    },
+    {
+      "id": "assessment",
+      "name": "裁决、阈值与覆盖",
+      "paths": [
+        "slopeway/evaluation/selection.py",
+        "slopeway/evaluation/risks.py",
+        "slopeway/evaluation/section.py",
+        "slopeway/evaluation/coverage.py"
+      ]
+    },
+    {
+      "id": "routing",
+      "name": "图路径搜索",
+      "paths": [
+        "slopeway/network/router.py"
+      ]
+    },
+    {
+      "id": "release",
+      "name": "编译和快照交付",
+      "paths": [
+        "slopeway/releases/compiler.py",
+        "slopeway/releases/envelope.py",
+        "slopeway/releases/comparison.py",
+        "slopeway/releases/preview.py"
+      ]
+    },
+    {
+      "id": "channel",
+      "name": "渠道交接",
+      "paths": [
+        "slopeway/releases/channels.py",
+        "slopeway/storage/channel_store.py"
+      ]
+    },
+    {
+      "id": "storage",
+      "name": "记录和事务持久化",
+      "paths": [
+        "slopeway/storage/database.py",
+        "slopeway/storage/schema.sql",
+        "slopeway/storage/topology_store.py",
+        "slopeway/storage/feed_store.py",
+        "slopeway/storage/release_store.py"
+      ]
+    },
+    {
+      "id": "web",
+      "name": "原生浏览器工作台",
+      "paths": [
+        "web/index.html",
+        "web/js/main.mjs",
+        "web/js/map.mjs"
+      ]
+    }
+  ],
+  "workflows": [
+    {
+      "id": "topology",
+      "name": "拓扑修订",
+      "entry": "POST /topologies",
+      "module_ids": [
+        "http",
+        "topology",
+        "storage"
+      ],
+      "steps": [
+        "校验端点、连通性及方向",
+        "校验修订基数并冻结新图"
+      ],
+      "success": "版本递增且可回读旧图",
+      "failure": "非法端点或过时代次拒绝",
+      "verification": "二次登记后对照两修订"
+    },
+    {
+      "id": "survey",
+      "name": "接收现场量测",
+      "entry": "POST /feeds",
+      "module_ids": [
+        "http",
+        "topology",
+        "intake",
+        "storage"
+      ],
+      "steps": [
+        "定位修订和允许的街段方向",
+        "规范测量与报告时间后整批落库"
+      ],
+      "success": "相同批次和内容返回原记录",
+      "failure": "任一记录与拓扑冲突时整批退回",
+      "verification": "重复上传、非法方向与原子拒绝"
+    },
+    {
+      "id": "notice",
+      "name": "接收临时通告",
+      "entry": "POST /feeds",
+      "module_ids": [
+        "http",
+        "topology",
+        "intake",
+        "storage"
+      ],
+      "steps": [
+        "核验通告来源及作用方向",
+        "规范封闭有效窗并落库"
+      ],
+      "success": "方向和封闭有效期可回查",
+      "failure": "非授权源和非正长度窗口拒绝",
+      "verification": "复查方向通告和不合法通告"
+    },
+    {
+      "id": "compile",
+      "name": "编译知识截点快照",
+      "entry": "POST /releases",
+      "module_ids": [
+        "http",
+        "storage",
+        "time",
+        "release"
+      ],
+      "steps": [
+        "按固定修订和报告截点收集证据",
+        "构建服务窗方向索引并按摘要落库"
+      ],
+      "success": "快照内容确定且独立于后续入库",
+      "failure": "非法知识截点或超量快照拒绝",
+      "verification": "对照早晚截点的证据与重复编译 ID"
+    },
+    {
+      "id": "directions",
+      "name": "按出行条件核对方向",
+      "entry": "GET /releases/{id}/arcs/{arc}",
+      "module_ids": [
+        "http",
+        "topology",
+        "time",
+        "assessment",
+        "release"
+      ],
+      "steps": [
+        "定位服务时点与冻结口径",
+        "裁决量测、叠加封闭和阈值结果"
+      ],
+      "success": "正逆方向可各自解释",
+      "failure": "不存在的方向或窗外时点驳回",
+      "verification": "核对正逆坡度、来源和封闭边界"
+    },
+    {
+      "id": "route",
+      "name": "读取限制路线",
+      "entry": "GET /releases/{id}/route",
+      "module_ids": [
+        "http",
+        "topology",
+        "assessment",
+        "routing",
+        "release"
+      ],
+      "steps": [
+        "展开指定时点可通行的方向",
+        "搜索最短路并带回通行证据"
+      ],
+      "success": "返回路线与各段长度",
+      "failure": "不可达时回报可达集合和阻断边界",
+      "verification": "复核 410 m 正常、480 m 绕行与码头不可逆向到达"
+    },
+    {
+      "id": "coverage",
+      "name": "方向覆盖缺口",
+      "entry": "GET /releases/{id}/overview",
+      "module_ids": [
+        "http",
+        "topology",
+        "assessment",
+        "release"
+      ],
+      "steps": [
+        "生成全图方向状态",
+        "分别汇总缺证与有效通行状态"
+      ],
+      "success": "封闭时仍可察觉缺证",
+      "failure": "服务窗外返回请求错误",
+      "verification": "注入一条缺量测方向复核汇总"
+    },
+    {
+      "id": "compare",
+      "name": "比较两发布件",
+      "entry": "GET /releases/{id}/compare",
+      "module_ids": [
+        "http",
+        "time",
+        "assessment",
+        "release",
+        "storage"
+      ],
+      "steps": [
+        "同时读取两件并校验时点",
+        "按方向对齐通行结论和依据"
+      ],
+      "success": "定位时点下变化的街段和证据",
+      "failure": "跨片区或窗外查询拒绝",
+      "verification": "对照加入通告前后方向变化"
+    },
+    {
+      "id": "verify",
+      "name": "复核及导出冻结件",
+      "entry": "GET /releases/{id}/verify",
+      "module_ids": [
+        "http",
+        "release",
+        "storage"
+      ],
+      "steps": [
+        "取出冻结拓扑、来源及索引",
+        "重算内容和来源指纹"
+      ],
+      "success": "返回完整性结论和同件导出",
+      "failure": "完整性破坏时导出拒绝",
+      "verification": "重算导出的规范指纹并复核内嵌批次"
+    },
+    {
+      "id": "publish",
+      "name": "推进发布渠道",
+      "entry": "POST /districts/{id}/channels/{channel}",
+      "module_ids": [
+        "http",
+        "release",
+        "channel",
+        "storage"
+      ],
+      "steps": [
+        "校验同片区发布件完整性",
+        "按期望代次追加交接事件"
+      ],
+      "success": "并发争抢只有一个发布成功",
+      "failure": "代次过期返回冲突",
+      "verification": "并发替换后核对渠道导出及路由"
+    },
+    {
+      "id": "restore",
+      "name": "恢复先前发布件",
+      "entry": "POST /districts/{id}/channels/{channel}",
+      "module_ids": [
+        "http",
+        "release",
+        "channel",
+        "storage"
+      ],
+      "steps": [
+        "核对历史及当前代次",
+        "追加恢复事件并重新供件"
+      ],
+      "success": "代次继续递增，旧快照恢复供给",
+      "failure": "未发布过的快照拒绝恢复",
+      "verification": "恢复历史件并核对先前路线和快照"
+    }
+  ],
+  "complexity": {
+    "mechanisms": [
+      {
+        "id": "revision-cas",
+        "description": "拓扑修订基数保护独立版本"
+      },
+      {
+        "id": "atomic-intake",
+        "description": "批次身份、规范内容和原子写入"
+      },
+      {
+        "id": "direction-expansion",
+        "description": "物理街段展开为单向证据和可达性"
+      },
+      {
+        "id": "knowledge-cutoff",
+        "description": "报告时间知识截点与服务时刻分离"
+      },
+      {
+        "id": "window-index",
+        "description": "证据交叠的半开窗口过滤"
+      },
+      {
+        "id": "evidence-precedence",
+        "description": "先有效时间再来源与观察时间择优"
+      },
+      {
+        "id": "constraints",
+        "description": "独立的宽度、坡度和台阶阈值"
+      },
+      {
+        "id": "directional-path",
+        "description": "按可通方向的加权最短路与不可达边界"
+      },
+      {
+        "id": "evidence-coverage",
+        "description": "封闭状态和量测覆盖分别统计"
+      },
+      {
+        "id": "content-addressing",
+        "description": "规范编码和内容地址"
+      },
+      {
+        "id": "fixed-window-diff",
+        "description": "服务窗交集内方向级语义对齐"
+      },
+      {
+        "id": "channel-cas-restore",
+        "description": "渠道代次保护、只追加历史与向前恢复"
+      }
+    ]
+  }
+}

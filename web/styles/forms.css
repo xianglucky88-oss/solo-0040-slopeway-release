@@ -1,0 +1,14 @@
+.two-col { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: 16px; }
+.stack { display: grid; gap: 12px; padding: 16px; }
+.date-fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 184px), 1fr)); gap: 10px; }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.activity { padding: 5px 16px; }
+.activity:empty { padding: 0; }
+.activity.compact { padding-inline: 0; }
+.log-line { padding: 9px 0; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; border-bottom: 1px solid var(--edge); overflow-wrap: anywhere; }
+.log-line:last-child { border-bottom: 0; }
+.log-line span { color: var(--subtle); font-size: 13px; }
+.inline-details { padding: 11px 16px; border-top: 1px solid var(--edge); }
+.inline-details summary { color: var(--accent); font-weight: 650; }
+.inline-details ul { padding-left: 20px; }
+@media (max-width: 800px) { .two-col { grid-template-columns: 1fr; } }

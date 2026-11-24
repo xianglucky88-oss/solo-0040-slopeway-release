@@ -1,0 +1,210 @@
+{
+  "district": "reedbank",
+  "revision": 1,
+  "batch": "walk-916",
+  "kind": "survey",
+  "source": "field-team",
+  "reported_at": "2026-09-16T08:00:00Z",
+  "records": [
+    {
+      "id": "arch-deck-ab",
+      "segment": "arch-deck",
+      "direction": "ab",
+      "observed_at": "2026-09-16T07:00:00Z",
+      "expires_at": "2026-09-19T07:00:00Z",
+      "width_mm": 1200,
+      "grade_permille": -92,
+      "step_mm": 8
+    },
+    {
+      "id": "arch-deck-ba",
+      "segment": "arch-deck",
+      "direction": "ba",
+      "observed_at": "2026-09-16T07:00:00Z",
+      "expires_at": "2026-09-19T07:00:00Z",
+      "width_mm": 1200,
+      "grade_permille": 92,
+      "step_mm": 8
+    },
+    {
+      "id": "deck-lookout-ab",
+      "segment": "deck-lookout",
+      "direction": "ab",
+      "observed_at": "2026-09-16T07:00:00Z",
+      "expires_at": "2026-09-19T07:00:00Z",
+      "width_mm": 1200,
+      "grade_permille": 26,
+      "step_mm": 8
+    },
+    {
+      "id": "deck-lookout-ba",
+      "segment": "deck-lookout",
+      "direction": "ba",
+      "observed_at": "2026-09-16T07:00:00Z",
+      "expires_at": "2026-09-19T07:00:00Z",
+      "width_mm": 1200,
+      "grade_permille": -26,
+      "step_mm": 8
+    },
+    {
+      "id": "lookout-garden-ab",
+      "segment": "lookout-garden",
+      "direction": "ab",
+      "observed_at": "2026-09-16T07:00:00Z",
+      "expires_at": "2026-09-19T07:00:00Z",
+      "width_mm": 1200,
+      "grade_permille": 26,
+      "step_mm": 8
+    },
+    {
+      "id": "lookout-garden-ba",
+      "segment": "lookout-garden",
+      "direction": "ba",
+      "observed_at": "2026-09-16T07:00:00Z",
+      "expires_at": "2026-09-19T07:00:00Z",
+      "width_mm": 1200,
+      "grade_permille": -26,
+      "step_mm": 8
+    },
+    {
+      "id": "arch-bay-ab",
+      "segment": "arch-bay",
+      "direction": "ab",
+      "observed_at": "2026-09-16T07:00:00Z",
+      "expires_at": "2026-09-19T07:00:00Z",
+      "width_mm": 1200,
+      "grade_permille": 26,
+      "step_mm": 8
+    },
+    {
+      "id": "arch-bay-ba",
+      "segment": "arch-bay",
+      "direction": "ba",
+      "observed_at": "2026-09-16T07:00:00Z",
+      "expires_at": "2026-09-19T07:00:00Z",
+      "width_mm": 1200,
+      "grade_permille": -26,
+      "step_mm": 8
+    },
+    {
+      "id": "bay-court-ab",
+      "segment": "bay-court",
+      "direction": "ab",
+      "observed_at": "2026-09-16T07:00:00Z",
+      "expires_at": "2026-09-19T07:00:00Z",
+      "width_mm": 1200,
+      "grade_permille": 26,
+      "step_mm": 8
+    },
+    {
+      "id": "bay-court-ba",
+      "segment": "bay-court",
+      "direction": "ba",
+      "observed_at": "2026-09-16T07:00:00Z",
+      "expires_at": "2026-09-19T07:00:00Z",
+      "width_mm": 1200,
+      "grade_permille": -26,
+      "step_mm": 8
+    },
+    {
+      "id": "court-garden-ab",
+      "segment": "court-garden",
+      "direction": "ab",
+      "observed_at": "2026-09-16T07:00:00Z",
+      "expires_at": "2026-09-19T07:00:00Z",
+      "width_mm": 1200,
+      "grade_permille": 26,
+      "step_mm": 8
+    },
+    {
+      "id": "court-garden-ba",
+      "segment": "court-garden",
+      "direction": "ba",
+      "observed_at": "2026-09-16T07:00:00Z",
+      "expires_at": "2026-09-19T07:00:00Z",
+      "width_mm": 1200,
+      "grade_permille": -26,
+      "step_mm": 8
+    },
+    {
+      "id": "pier-bay-ab",
+      "segment": "pier-bay",
+      "direction": "ab",
+      "observed_at": "2026-09-16T07:00:00Z",
+      "expires_at": "2026-09-19T07:00:00Z",
+      "width_mm": 1200,
+      "grade_permille": 26,
+      "step_mm": 8
+    },
+    {
+      "id": "court-quay-ab",
+      "segment": "court-quay",
+      "direction": "ab",
+      "observed_at": "2026-09-16T07:00:00Z",
+      "expires_at": "2026-09-19T07:00:00Z",
+      "width_mm": 1200,
+      "grade_permille": 26,
+      "step_mm": 8
+    },
+    {
+      "id": "court-quay-ba",
+      "segment": "court-quay",
+      "direction": "ba",
+      "observed_at": "2026-09-16T07:00:00Z",
+      "expires_at": "2026-09-19T07:00:00Z",
+      "width_mm": 1200,
+      "grade_permille": -26,
+      "step_mm": 8
+    },
+    {
+      "id": "quay-garden-ab",
+      "segment": "quay-garden",
+      "direction": "ab",
+      "observed_at": "2026-09-16T07:00:00Z",
+      "expires_at": "2026-09-19T07:00:00Z",
+      "width_mm": 1200,
+      "grade_permille": 26,
+      "step_mm": 8
+    },
+    {
+      "id": "bay-deck-ab",
+      "segment": "bay-deck",
+      "direction": "ab",
+      "observed_at": "2026-09-16T07:00:00Z",
+      "expires_at": "2026-09-19T07:00:00Z",
+      "width_mm": 1200,
+      "grade_permille": 26,
+      "step_mm": 8
+    },
+    {
+      "id": "bay-deck-ba",
+      "segment": "bay-deck",
+      "direction": "ba",
+      "observed_at": "2026-09-16T07:00:00Z",
+      "expires_at": "2026-09-19T07:00:00Z",
+      "width_mm": 1200,
+      "grade_permille": -26,
+      "step_mm": 8
+    },
+    {
+      "id": "court-lookout-ab",
+      "segment": "court-lookout",
+      "direction": "ab",
+      "observed_at": "2026-09-16T07:00:00Z",
+      "expires_at": "2026-09-19T07:00:00Z",
+      "width_mm": 1200,
+      "grade_permille": 26,
+      "step_mm": 55
+    },
+    {
+      "id": "court-lookout-ba",
+      "segment": "court-lookout",
+      "direction": "ba",
+      "observed_at": "2026-09-16T07:00:00Z",
+      "expires_at": "2026-09-19T07:00:00Z",
+      "width_mm": 1200,
+      "grade_permille": -26,
+      "step_mm": 55
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "language": "Python 3.11+ + JavaScript ES Modules",
+  "project_shape": "fullstack",
+  "testing": "deferred",
+  "source_extensions": [
+    ".py",
+    ".sql",
+    ".mjs",
+    ".css",
+    ".html"
+  ],
+  "build_command": "python3 -B -m tools.build",
+  "workflow_checks": [
+    {
+      "workflow_id": "topology",
+      "command": "python3 -B -m tools.workflows topology"
+    },
+    {
+      "workflow_id": "survey",
+      "command": "python3 -B -m tools.workflows survey"
+    },
+    {
+      "workflow_id": "notice",
+      "command": "python3 -B -m tools.workflows notice"
+    },
+    {
+      "workflow_id": "compile",
+      "command": "python3 -B -m tools.workflows compile"
+    },
+    {
+      "workflow_id": "directions",
+      "command": "python3 -B -m tools.workflows directions"
+    },
+    {
+      "workflow_id": "route",
+      "command": "python3 -B -m tools.workflows route"
+    },
+    {
+      "workflow_id": "coverage",
+      "command": "python3 -B -m tools.workflows coverage"
+    },
+    {
+      "workflow_id": "compare",
+      "command": "python3 -B -m tools.workflows compare"
+    },
+    {
+      "workflow_id": "verify",
+      "command": "python3 -B -m tools.workflows verify"
+    },
+    {
+      "workflow_id": "publish",
+      "command": "python3 -B -m tools.workflows publish"
+    },
+    {
+      "workflow_id": "restore",
+      "command": "python3 -B -m tools.workflows restore"
+    }
+  ]
+}

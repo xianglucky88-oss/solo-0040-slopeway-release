@@ -1,0 +1,145 @@
+{
+  "district": "reedbank",
+  "label": "苇汀片区",
+  "expected_revision": 0,
+  "nodes": [
+    {
+      "id": "arch",
+      "label": "栖岸换乘厅",
+      "x": 90,
+      "y": 180
+    },
+    {
+      "id": "bay",
+      "label": "浅湾路亭",
+      "x": 210,
+      "y": 245
+    },
+    {
+      "id": "court",
+      "label": "苇垣小院",
+      "x": 350,
+      "y": 235
+    },
+    {
+      "id": "deck",
+      "label": "叠石连廊",
+      "x": 220,
+      "y": 90
+    },
+    {
+      "id": "garden",
+      "label": "汀步花园",
+      "x": 485,
+      "y": 175
+    },
+    {
+      "id": "lookout",
+      "label": "沄桥观景口",
+      "x": 395,
+      "y": 64
+    },
+    {
+      "id": "pier",
+      "label": "雁汊码头",
+      "x": 65,
+      "y": 305
+    },
+    {
+      "id": "quay",
+      "label": "鱼灯巷口",
+      "x": 440,
+      "y": 305
+    }
+  ],
+  "segments": [
+    {
+      "id": "arch-deck",
+      "label": "叠石上径",
+      "a": "arch",
+      "b": "deck",
+      "length_m": 155,
+      "direction": "both"
+    },
+    {
+      "id": "deck-lookout",
+      "label": "栏桥斜道",
+      "a": "deck",
+      "b": "lookout",
+      "length_m": 125,
+      "direction": "both"
+    },
+    {
+      "id": "lookout-garden",
+      "label": "沄桥连道",
+      "a": "lookout",
+      "b": "garden",
+      "length_m": 130,
+      "direction": "both"
+    },
+    {
+      "id": "arch-bay",
+      "label": "浅湾栈径",
+      "a": "arch",
+      "b": "bay",
+      "length_m": 130,
+      "direction": "both"
+    },
+    {
+      "id": "bay-court",
+      "label": "苇垣缓道",
+      "a": "bay",
+      "b": "court",
+      "length_m": 180,
+      "direction": "both"
+    },
+    {
+      "id": "court-garden",
+      "label": "花园南径",
+      "a": "court",
+      "b": "garden",
+      "length_m": 170,
+      "direction": "both"
+    },
+    {
+      "id": "pier-bay",
+      "label": "码头进道",
+      "a": "pier",
+      "b": "bay",
+      "length_m": 145,
+      "direction": "ab"
+    },
+    {
+      "id": "court-quay",
+      "label": "鱼灯街角",
+      "a": "court",
+      "b": "quay",
+      "length_m": 95,
+      "direction": "both"
+    },
+    {
+      "id": "quay-garden",
+      "label": "东圩支径",
+      "a": "quay",
+      "b": "garden",
+      "length_m": 150,
+      "direction": "both"
+    },
+    {
+      "id": "bay-deck",
+      "label": "横汊肩道",
+      "a": "bay",
+      "b": "deck",
+      "length_m": 175,
+      "direction": "both"
+    },
+    {
+      "id": "court-lookout",
+      "label": "连桥小阶",
+      "a": "court",
+      "b": "lookout",
+      "length_m": 180,
+      "direction": "both"
+    }
+  ]
+}

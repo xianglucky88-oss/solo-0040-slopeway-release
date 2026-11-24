@@ -1,0 +1,18 @@
+{
+  "district": "reedbank",
+  "revision": 1,
+  "batch": "join-918",
+  "kind": "notice",
+  "source": "streetworks",
+  "reported_at": "2026-09-18T07:30:00Z",
+  "records": [
+    {
+      "id": "stone-joint",
+      "segment": "deck-lookout",
+      "direction": "ab",
+      "from": "2026-09-18T09:00:00Z",
+      "until": "2026-09-18T10:00:00Z",
+      "reason": "栏桥伸缩缝收口作业"
+    }
+  ]
+}
